@@ -1,0 +1,2 @@
+    tr_ent,   tr_loss,     t_ent,    t_loss,     t_acc,     epoch
+  3.17e+07, -3.17e+07,  3.19e+07, -3.19e+07,  1.14e-01,         1
