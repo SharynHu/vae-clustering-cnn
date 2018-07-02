@@ -1,6 +1,4 @@
 # VAE-Clustering
-This code is forked from https://github.com/RuiShu/vae-clustering.
-
 A collection of experiments that shines light on VAE (containing discrete latent variables) as a clustering algorithm.
 
 We evaluate the unsupervised clustering performance of three closely-related sets of deep generative models:

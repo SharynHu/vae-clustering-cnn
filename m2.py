@@ -7,9 +7,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 from tensorbayes.layers import constant as Constant
 from tensorbayes.layers import placeholder as Placeholder
 from tensorbayes.layers import dense as Dense
-from tensorbayes.layers import conv2d as Conv2d
 from tensorbayes.layers import gaussian_sample as GaussianSample
-from tensorbayes.layers import conv2d_transpose as Conv2d_transpose
 from tensorbayes.distributions import log_bernoulli_with_logits, log_normal
 from tensorflow.python.ops.nn_ops import softmax_cross_entropy_with_logits_v2 as cross_entropy_with_logits
 from tensorbayes.nbutils import show_graph
@@ -25,17 +23,9 @@ def px_graph(z, y):
     # -- p(x)
     with tf.variable_scope('px'):
         zy = tf.concat((z, y), 1, name='zy/concat')
-        # h1 = Dense(zy, 512, 'layer1', tf.nn.relu, reuse=reuse)
-        # h2 = Dense(h1, 512, 'layer2', tf.nn.relu, reuse=reuse)
-        # px_logit = Dense(h2, 784, 'logit', reuse=reuse)
-        h1 = Dense(zy, 128, 'layer1', tf.nn.relu, reuse = reuse)
-        h2 = Dense(h1, 28 * 14 * 14, 'layer2', tf.nn.relu, reuse = reuse )
-        h2 = tf.reshape(h2,[-1, 14, 14, 28])
-        h3 = Conv2d_transpose(h2, 28, [3, 3], [1, 1], activation=tf.nn.relu, reuse = reuse, scope = "layer3")
-        h4 = Conv2d_transpose(h3, 28, [3, 3], [1, 1], activation=tf.nn.relu, reuse = reuse, scope = "layer4")
-        h5 = Conv2d_transpose(h4, 28, [3, 3], [2, 2], activation=tf.nn.relu, reuse = reuse, scope = "layer5")
-        px_logit = Conv2d(h5, 1, [2, 2], [1, 1] ,scope = "layer6", reuse = reuse)
-        px_logit = tf.contrib.layers.flatten(px_logit)
+        h1 = Dense(zy, 512, 'layer1', tf.nn.relu, reuse=reuse)
+        h2 = Dense(h1, 512, 'layer2', tf.nn.relu, reuse=reuse)
+        px_logit = Dense(h2, 784, 'logit', reuse=reuse)
     return px_logit
 
 tf.reset_default_graph()
@@ -61,7 +51,7 @@ for i in xrange(10):
 # Aggressive name scoping for pretty graph visualization :P
 with tf.name_scope('loss'):
     with tf.name_scope('neg_entropy'):
-        nent = -cross_entropy_with_logits(logits = qy_logit, labels = qy)
+        nent = -cross_entropy_with_logits(logits = qy_logit, labels =qy)
     losses = [None] * 10
     for i in xrange(10):
         with tf.name_scope('loss_at{:d}'.format(i)):
