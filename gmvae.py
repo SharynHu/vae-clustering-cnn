@@ -43,7 +43,8 @@ def px_graph(z, y):
         h5 = Conv2d_transpose(h4, 28, [3, 3], [1, 1], activation=tf.nn.relu, reuse = reuse, scope = "layer5")
         h6 = Conv2d_transpose(h5, 28, [3, 3], [2, 2], activation=tf.nn.relu, reuse = reuse, scope = "layer6")
         h7 = Conv2d_transpose(h6, 28, [3, 3], [1, 1], activation=tf.nn.relu, reuse = reuse, scope = "layer7")
-        px_logit = Conv2d(h7, 1, [2, 2], [1, 1] ,scope = "layer8", reuse = reuse)
+        h8 = Conv2d_transpose(h7, 28, [3, 3], [1, 1], activation=tf.nn.relu, reuse = reuse, scope = "layer8")
+        px_logit = Conv2d(h8, 1, [2, 2], [1, 1] ,scope = "layer9", reuse = reuse)
         px_logit = tf.contrib.layers.flatten(px_logit)
     return zm, zv, px_logit
 
