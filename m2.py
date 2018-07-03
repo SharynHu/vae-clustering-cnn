@@ -23,9 +23,17 @@ def px_graph(z, y):
     # -- p(x)
     with tf.variable_scope('px'):
         zy = tf.concat((z, y), 1, name='zy/concat')
-        h1 = Dense(zy, 512, 'layer1', tf.nn.relu, reuse=reuse)
-        h2 = Dense(h1, 512, 'layer2', tf.nn.relu, reuse=reuse)
-        px_logit = Dense(h2, 784, 'logit', reuse=reuse)
+        # h1 = Dense(zy, 512, 'layer1', tf.nn.relu, reuse=reuse)
+        # h2 = Dense(h1, 512, 'layer2', tf.nn.relu, reuse=reuse)
+        # px_logit = Dense(h2, 784, 'logit', reuse=reuse)
+        h3 = Dense(zy, 28 * 14 * 14, 'layer3', tf.nn.relu, reuse = reuse )
+        h3 = tf.reshape(h3,[-1, 14, 14, 28])
+        h4 = Conv2d_transpose(h3, 28, [3, 3], [1, 1], activation=tf.nn.relu, reuse = reuse, scope = "layer4")
+        h5 = Conv2d_transpose(h4, 28, [3, 3], [1, 1], activation=tf.nn.relu, reuse = reuse, scope = "layer5")
+        h6 = Conv2d_transpose(h5, 28, [3, 3], [2, 2], activation=tf.nn.relu, reuse = reuse, scope = "layer6")
+        # h7 = Conv2d_transpose(h6, 28, [3, 3], [1, 1], activation=tf.nn.relu, reuse = reuse, scope = "layer7")
+        px_logit = Conv2d(h6, 1, [2, 2], [1, 1] ,scope = "layer7", reuse = reuse)
+        px_logit = tf.contrib.layers.flatten(px_logit)
     return px_logit
 
 tf.reset_default_graph()
