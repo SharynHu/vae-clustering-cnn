@@ -26,8 +26,9 @@ def px_graph(z, y):
     with tf.variable_scope('pz'):
         h1 = Dense(y, 64, 'h1', tf.nn.relu, reuse=reuse)
         h2 = Dense(h1, 64, 'h2', tf.nn.relu, reuse=reuse)
-        zm = Dense(h2, 64, 'zm', reuse=reuse)
-        zv = Dense(h2, 64, 'zv', tf.nn.softplus, reuse=reuse)
+        h3 = Dense(h2, 64, 'h3', tf.nn.relu, reuse=reuse)
+        zm = Dense(h3, 64, 'zm', reuse=reuse)
+        zv = Dense(h3, 64, 'zv', tf.nn.softplus, reuse=reuse)
         # zv = Dense(y, 64, 'zv', tf.nn.softplus, reuse=reuse)
         # zm = Dense(y, 64, 'zm', reuse=reuse)
     # -- p(x)
