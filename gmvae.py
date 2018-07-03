@@ -32,7 +32,7 @@ def px_graph(z, y):
         # zm = Dense(y, 64, 'zm', reuse=reuse)
     # -- p(x)
     with tf.variable_scope('px'):
-        h1 = Dense(z, 128, 'layer1', tf.nn.relu, reuse=reuse)
+        h1 = Dense(z, 512, 'layer1', tf.nn.relu, reuse=reuse)
         # h2 = Dense(h1, 512, 'layer2', tf.nn.relu, reuse=reuse)
         # h3 = Dense(h2, 512, 'layer3', tf.nn.relu, reuse=reuse)
         # px_logit = Dense(h3, 784, 'logit', reuse=reuse)
