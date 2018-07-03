@@ -7,6 +7,8 @@ from tensorflow.examples.tutorials.mnist import input_data
 from tensorbayes.layers import constant as Constant
 from tensorbayes.layers import placeholder as Placeholder
 from tensorbayes.layers import dense as Dense
+from tensorbayes.layers import conv2d_transpose as Conv2d_transpose
+from tensorbayes.layers import conv2d as Conv2d
 from tensorbayes.layers import gaussian_sample as GaussianSample
 from tensorbayes.distributions import log_bernoulli_with_logits, log_normal
 from tensorflow.python.ops.nn_ops import softmax_cross_entropy_with_logits_v2 as cross_entropy_with_logits
