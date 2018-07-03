@@ -59,7 +59,7 @@ def px_graph(z, y):
         # h5 = tf.nn.dropout(h4, 0.5, name = 'layer5')
         # # px_logit = Dense(h2, 784, 'logit', reuse=reuse)
         # px_logit = Dense(h5, 784, 'logit', reuse=reuse)
-        h2 = Dense(h1, 512, 'layer2', tf.nn.relu, reuse = reuse)
+        # h2 = Dense(h1, 512, 'layer2', tf.nn.relu, reuse = reuse)
         h3 = Dense(h2, 28 * 14 * 14, 'layer3', tf.nn.relu, reuse = reuse )
         h3 = tf.reshape(h3,[-1, 14, 14, 28])
         h4 = Conv2d_transpose(h3, 28, [3, 3], [1, 1], activation=tf.nn.relu, reuse = reuse, scope = "layer4")
