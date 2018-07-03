@@ -88,4 +88,4 @@ sess.run(tf.global_variables_initializer()) # Change initialization protocol dep
 # raise ValueError('Nothing')
 sess_info = (sess, qy_logit, nent, loss, train_step)
 # train('logs/m2.log', mnist, sess_info, epochs=1000)
-train('logs/m2.log', mnist, sess_info, epochs=20)
+train('logs/m2.log', mnist, sess_info, epochs=200)
