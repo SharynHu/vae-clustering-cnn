@@ -42,25 +42,25 @@ def px_graph(z, y):
     reuse = len(tf.get_collection(tf.GraphKeys.VARIABLES, scope='px')) > 0
     # -- transform z to be a sample from one of the Gaussian mixture components
     with tf.variable_scope('z_transform'):
-        # zm = Dense(y, 64, 'zm', reuse=reuse)
-        # zv = Dense(y, 64, 'zv', tf.nn.softplus, reuse=reuse)
-        h1 = Dense(y,128, 'h1', tf.nn.relu, reuse=reuse)
-        h2 = Dense(h1,128, 'h2', tf.nn.relu, reuse=reuse)
-        zm = Dense(h2, 64, 'zm', reuse=reuse)
-        zv = Dense(h2, 64, 'zv', tf.nn.softplus, reuse=reuse)
+        zm = Dense(y, 64, 'zm', reuse=reuse)
+        zv = Dense(y, 64, 'zv', tf.nn.softplus, reuse=reuse)
+        # h1 = Dense(y,128, 'h1', tf.nn.relu, reuse=reuse)
+        # h2 = Dense(h1,128, 'h2', tf.nn.relu, reuse=reuse)
+        # zm = Dense(h2, 64, 'zm', reuse=reuse)
+        # zv = Dense(h2, 64, 'zv', tf.nn.softplus, reuse=reuse)
     # -- p(x)
     with tf.variable_scope('px'):
         with tf.name_scope('layer1'):
             zy = zm + tf.sqrt(zv) * z
             h1 = custom_layer(zy, reuse)
-        # h2 = Dense(h1, 512, 'layer2', tf.nn.relu, reuse=reuse)
+        h2 = Dense(h1, 512, 'layer2', tf.nn.relu, reuse=reuse)
         # h3 = tf.nn.dropout(h2, 0.5, name = 'layer3')
         # h4 = Dense(h2, 512, 'layer4', tf.nn.relu, reuse = reuse)
         # h5 = tf.nn.dropout(h4, 0.5, name = 'layer5')
         # # px_logit = Dense(h2, 784, 'logit', reuse=reuse)
         # px_logit = Dense(h5, 784, 'logit', reuse=reuse)
         # h2 = Dense(h1, 512, 'layer2', tf.nn.relu, reuse = reuse)
-        h3 = Dense(h1, 28 * 14 * 14, 'layer3', tf.nn.relu, reuse = reuse )
+        h3 = Dense(h2, 28 * 14 * 14, 'layer3', tf.nn.relu, reuse = reuse )
         h3 = tf.reshape(h3,[-1, 14, 14, 28])
         h4 = Conv2d_transpose(h3, 28, [3, 3], [1, 1], activation=tf.nn.relu, reuse = reuse, scope = "layer4")
         h5 = Conv2d_transpose(h4, 28, [3, 3], [1, 1], activation=tf.nn.relu, reuse = reuse, scope = "layer5")
