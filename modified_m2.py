@@ -42,12 +42,12 @@ def px_graph(z, y):
     reuse = len(tf.get_collection(tf.GraphKeys.VARIABLES, scope='px')) > 0
     # -- transform z to be a sample from one of the Gaussian mixture components
     with tf.variable_scope('z_transform'):
-        zm = Dense(y, 64, 'zm', reuse=reuse)
-        zv = Dense(y, 64, 'zv', tf.nn.softplus, reuse=reuse)
-        # h1 = Dense(y,128, 'h1', tf.nn.relu, reuse=reuse)
-        # h2 = Dense(h1,128, 'h2', tf.nn.relu, reuse=reuse)
-        # zm = Dense(h2, 64, 'zm', reuse=reuse)
-        # zv = Dense(h2, 64, 'zv', tf.nn.softplus, reuse=reuse)
+        # zm = Dense(y, 64, 'zm', reuse=reuse)
+        # zv = Dense(y, 64, 'zv', tf.nn.softplus, reuse=reuse)
+        h1 = Dense(y,128, 'h1', tf.nn.relu, reuse=reuse)
+        h2 = Dense(h1,128, 'h2', tf.nn.relu, reuse=reuse)
+        zm = Dense(h2, 64, 'zm', reuse=reuse)
+        zv = Dense(h2, 64, 'zv', tf.nn.softplus, reuse=reuse)
     # -- p(x)
     with tf.variable_scope('px'):
         with tf.name_scope('layer1'):
