@@ -11,7 +11,7 @@ from tensorbayes.layers import conv2d as Conv2d
 from tensorbayes.layers import gaussian_sample as GaussianSample
 from tensorbayes.distributions import log_bernoulli_with_logits, log_normal
 # from tensorbayes.tbutils import softmax_cross_entropy_with_two_logits as cross_entropy_with_logits
-from tensorflow.python.ops.nn_ops import softmax_cross_entropy_with_logits_v2 as cross_entropy_with_logits
+from tensorflow.python.ops.nn_ops import softmax_cross_entropy_with_logits as cross_entropy_with_logits
 from tensorbayes.nbutils import show_graph
 from tensorbayes.utils import progbar
 import numpy as np
