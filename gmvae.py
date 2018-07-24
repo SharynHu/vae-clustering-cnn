@@ -85,7 +85,7 @@ train_step = tf.train.AdamOptimizer().minimize(loss)
 # config.gpu_options.allocator_type = 'BFC'
 # config.gpu_options.per_process_gpu_memory_fraction = 0.80
 
-sess = tf.Session(config=config)
+sess = tf.Session()
 
 sess.run(tf.initialize_all_variables())
 # print sess.run(y,feed_dict={x: mnist.train.next_batch(100)[0]})
