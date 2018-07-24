@@ -80,7 +80,13 @@ with tf.name_scope('loss'):
         loss = tf.add_n([nent] + [qy[:, i] * losses[i] for i in xrange(10)])
 
 train_step = tf.train.AdamOptimizer().minimize(loss)
-sess = tf.Session()
+
+config = tf.ConfigProto(allow_soft_placement=True)
+config.gpu_options.allocator_type = 'BFC'
+config.gpu_options.per_process_gpu_memory_fraction = 0.80
+
+sess = tf.Session(config=config)
+
 sess.run(tf.initialize_all_variables())
 # print sess.run(y,feed_dict={x: mnist.train.next_batch(100)[0]})
 # raise ValueError('nothing')
