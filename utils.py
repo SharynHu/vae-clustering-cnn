@@ -10,10 +10,12 @@ def stream_print(f, string, pipe_to_file=True):
         f.flush()
 
 def test_acc(mnist, sess, qy_logit):
-    logits = sess.run(qy_logit, feed_dict={'x:0': mnist.test.images})
-    # for i in range(10):
-    #     print logits[1000 * i + 300]
-
+    epoch = int(mnist.test.images.shape[0]/100)
+    logits = []
+    for i in range(epoch - 1):
+        logits_batch = sess.run(qy_logit, feed_dict={'x:0': mnist.test.images.next_batch(100)[0]})
+        logits += list(logits_batch)
+    logits = np.array(logits)
     cat_pred = logits.argmax(1)
     # print cat_pred[:20]
     # print cat_pred[1000:1020]

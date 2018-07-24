@@ -81,9 +81,9 @@ with tf.name_scope('loss'):
 
 train_step = tf.train.AdamOptimizer().minimize(loss)
 
-config = tf.ConfigProto(allow_soft_placement=True)
-config.gpu_options.allocator_type = 'BFC'
-config.gpu_options.per_process_gpu_memory_fraction = 0.80
+# config = tf.ConfigProto()
+# config.gpu_options.allocator_type = 'BFC'
+# config.gpu_options.per_process_gpu_memory_fraction = 0.80
 
 sess = tf.Session(config=config)
 
