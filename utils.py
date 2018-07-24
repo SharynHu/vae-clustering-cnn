@@ -65,8 +65,8 @@ def train(fname, mnist, sess_info, epochs):
         progbar(i, iterep)
         # print '\n'
         if (i + 1) %  iterep == 0:
-            a, b = sess.run([nent, loss], feed_dict={'x:0': mnist.train.images[np.random.choice(50000, 10000)]})
-            c, d = sess.run([nent, loss], feed_dict={'x:0': mnist.test.images})
+            a, b = sess.run([nent, loss], feed_dict={'x:0': mnist.train.images[np.random.choice(50000, 1000)]})
+            c, d = sess.run([nent, loss], feed_dict={'x:0': mnist.test.images[np.random.choice(10000, 1000)]})
             a, b, c, d = -a.mean(), b.mean(), -c.mean(), d.mean()
             e = test_acc(mnist, sess, qy_logit)
             string = ('{:>10s},{:>10s},{:>10s},{:>10s},{:>10s},{:>10s}'
