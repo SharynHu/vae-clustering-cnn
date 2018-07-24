@@ -47,7 +47,7 @@ def train(fname, mnist, sess_info, epochs):
     f = open_file(fname)
     iterep = 500
     for i in range(iterep * epochs):
-        sess.run(train_step, feed_dict={'x:0': mnist.train.next_batch(100)[0]})
+        sess.run(train_step, feed_dict={'x:0': mnist.train.images.next_batch(100)[0]})
         # if i<= 20:
         #     print test_acc(mnist, sess, qy_logit)
         # else:
