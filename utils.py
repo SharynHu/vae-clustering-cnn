@@ -13,7 +13,7 @@ def test_acc(mnist, sess, qy_logit):
     epoch = int(mnist.test.images.shape[0]/100)
     logits = []
     for i in range(epoch - 1):
-        logits_batch = sess.run(qy_logit, feed_dict={'x:0': mnist.test.images.next_batch(100)[0]})
+        logits_batch = sess.run(qy_logit, feed_dict={'x:0': mnist.test.next_batch(100)[0]})
         logits += list(logits_batch)
     logits = np.array(logits)
     cat_pred = logits.argmax(1)
@@ -47,7 +47,7 @@ def train(fname, mnist, sess_info, epochs):
     f = open_file(fname)
     iterep = 500
     for i in range(iterep * epochs):
-        sess.run(train_step, feed_dict={'x:0': mnist.train.images.next_batch(100)[0]})
+        sess.run(train_step, feed_dict={'x:0': mnist.train.next_batch(100)[0]})
         # if i<= 20:
         #     print test_acc(mnist, sess, qy_logit)
         # else:
