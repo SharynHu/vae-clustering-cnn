@@ -12,7 +12,7 @@ def stream_print(f, string, pipe_to_file=True):
 def test_acc(mnist, sess, qy_logit):
     epoch = int(mnist.test.images.shape[0]/100)
     logits = []
-    for i in range(epoch - 1):
+    for i in range(epoch):
         logits_batch = sess.run(qy_logit, feed_dict={'x:0': mnist.test.next_batch(100)[0]})
         logits += list(logits_batch)
     logits = np.array(logits)
